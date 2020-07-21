@@ -19,11 +19,7 @@ function round() {
 
 function endGame() {
   $('.j-endGame').hide();
-  if (mishit < 10) {
-    $("#total-hits-played").text(hits - mishit);
-  } else {
-    $("#total-hits-played").text('0, вы достигли максимум промахов.');
-  }
+  $("#total-hits-played").text(hits - mishit);
   let totalPlayedMillis = getTimestamp() - firstHitTime;
   let totalPlayedSeconds = Number(totalPlayedMillis / 1000).toPrecision(3);
   $("#total-time-played").text(totalPlayedSeconds);
@@ -37,8 +33,10 @@ function handleClick(event) {
     hits += 1;
     round();
   } else {
-    $(event.target).addClass("miss");
-    mishit += 1;
+      if ($(".game-field").hasClass("miss") === false) {
+        $(event.target).addClass("miss");
+        mishit += 1;
+      }
   }
 }
 
